@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--suppress ALL-->
+<head>
+    <meta charset="UTF-8">
+    <title>用户文件列表页面</title>
+</head>
+<body>
+    <h1>用户：[[${session.myuser.username}]] </h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>文件原始名称</th>
+            <th>文件新名称</th>
+            <th>文件后缀</th>
+            <th>存储路径</th>
+            <th>文件大小</th>
+            <th>类型</th>
+            <th>是否是图片</th>
+            <th>下载次数</th>
+            <th>上传时间</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each=" c:${myfiles}" >
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.oldFileName}"></td>
+            <td th:text="${c.newFileName}"></td>
+            <td th:text="${c.ext}"></td>
+            <td th:text="${c.path}">
+            <td th:text="${c.size}"></td>
+            <td th:text="${c.type}"></td>
+            <td th:text="${c.isimage}"></td>
+            <td th:text="${c.downcount}"></td>
+            <td th:text="${#dates.format(c.upLoadTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${c.uid}"></td>
+            <td>
+                <a href="">下载</a>
+                <a href="">在线打开</a>
+                <a href="">删除</a>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <h3>上传文件</h3>
+    <form th:action="@{/file/myupfile}" method="post" enctype="multipart/form-data">
+        <input type="file" name="upfile">
+        <input type="submit" value="上传文件">
+
+    </form>
+</body>
+</html>
